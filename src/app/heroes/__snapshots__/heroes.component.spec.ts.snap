@@ -25,6 +25,6 @@ exports[`HerosComponent snapshot of markup should match the markup for a item 1`
     class="heroes"
   >
     
-  </ul>
+  </ul><app-new-component />
 </app-heroes>
 `;

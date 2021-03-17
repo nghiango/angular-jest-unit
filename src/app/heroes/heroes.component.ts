@@ -31,6 +31,36 @@ export class HeroesComponent implements OnInit {
       });
   }
 
+  getAmountHero(): number {
+    return this.heroes.length;
+  }
+
+  addHeroByTimeOut(hero: Hero): void {
+    setTimeout(() => {
+      this.heroes.push(hero)
+    }, 3000);
+  }
+
+  getNameByPromise(name: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      if (name === 'Nghia') {
+        resolve('Nghia Ngo');
+      } else {
+        reject('Poor you');
+      }
+    })
+  }
+
+  async getNameByPromiseAsyncAwait(name: string): Promise<string> {
+    return await new Promise((resolve, reject) => {
+      if (name === 'Nghia') {
+        resolve('Nghia Ngo');
+      } else {
+        reject('Poor you');
+      }
+    })
+  }
+
   delete(hero: Hero): void {
     this.heroes = this.heroes.filter(h => h !== hero);
     this.heroService.deleteHero(hero).subscribe();

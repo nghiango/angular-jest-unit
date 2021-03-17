@@ -121,5 +121,71 @@ describe('HerosComponent', () => {
         expect(component.heroes.length).toEqual(1);
       });
     });
+    
+    describe('Get amount hero return function', () => {
+      const name = 'a new hero';
+      let hero = { id: 1, name: name };
+      beforeEach(() => {
+        heroServiceMock.getHeroes.mockReturnValue(of([]));
+        component.ngOnInit();
+        heroServiceMock.addHero.mockReturnValue(of(hero));
+      });
+      it('should return 0 when init', () => {
+        expect(component.getAmountHero()).toEqual(0);
+      });
+    });
+
+    describe('setTimeout Function', () => {
+      const name = 'a new hero';
+      let hero = { id: 1, name: name };
+      beforeEach(() => {
+        heroServiceMock.getHeroes.mockReturnValue(of([]));
+        component.ngOnInit();
+
+        jest.useFakeTimers();
+      });
+
+      afterEach(() => {
+        jest.clearAllTimers();
+      });
+
+      it('should waiting the timeout', () => {
+        component.addHeroByTimeOut(hero);
+        jest.runOnlyPendingTimers();
+        expect(component.heroes.length).toBeGreaterThan(0);
+      });
+
+      it('should not add the hero before 3 seconds', () => {
+        component.addHeroByTimeOut(hero);
+        jest.advanceTimersByTime(2999);
+        expect(component.heroes.length).toEqual(0);
+      });
+
+      it('should add the hero after 3 seconds', () => {
+        component.addHeroByTimeOut(hero);
+        jest.advanceTimersByTime(3001);
+        expect(component.heroes.length).toBeGreaterThan(0);
+      });
+    });
+
+    describe('Promise function', () => {
+      it('should be return resolve when name is correct', () => {
+        return expect(component.getNameByPromise('Nghia')).resolves.toEqual('Nghia Ngo')
+      });
+
+      it('should be return reject when name is not correct', () => {
+        return expect(component.getNameByPromise('someone')).rejects.toEqual('Poor you');
+      });
+    });
+
+    describe('Promise function with asyn/await', () => {
+      it('should be return resolve when name is correct', async () => {
+        await expect(component.getNameByPromiseAsyncAwait('Nghia')).resolves.toEqual('Nghia Ngo')
+      });
+
+      it('should be return reject when name is not correct', async () => {
+        await expect(component.getNameByPromiseAsyncAwait('someone')).rejects.toEqual('Poor you');
+      });
+    });
   });
 });
