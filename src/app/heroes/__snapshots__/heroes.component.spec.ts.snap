@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HerosComponent snapshot of markup should match the markup for a item 1`] = `
+<app-heroes
+  heroService={[Function Object]}
+  heroes={[Function Array]}
+>
+  <h2>
+    My Heroes
+  </h2><div>
+    <label
+      id="new-hero"
+    >
+      Hero name: 
+    </label>
+    <input
+      for="new-hero"
+    />
+    <button
+      class="add-button"
+    >
+       Add hero 
+    </button>
+  </div><ul
+    class="heroes"
+  >
+    
+  </ul>
+</app-heroes>
+`;
